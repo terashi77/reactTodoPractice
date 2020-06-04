@@ -20,6 +20,7 @@ const TodoForm = (props: TodoFormInterface) => {
 
   function handleClick(event: React.MouseEvent<HTMLElement>) {
     createTodo();
+    inputRef.current.focus();
   }
 
   function createTodo() {
