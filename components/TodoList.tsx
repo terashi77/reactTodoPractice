@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { TodoListInterface } from './../interfaces/TodoListInterface';
-import TodoItem from './TodoItem';
+import * as React from "react";
+import { TodoListInterface } from "./../interfaces/TodoListInterface";
+import TodoItem from "./TodoItem";
 
 const TodoList = (props: TodoListInterface) => {
   return (
@@ -8,7 +8,7 @@ const TodoList = (props: TodoListInterface) => {
       <ul>
         {props.todos.map((todo) => (
           <li key={todo.id}>
-            <TodoItem todo={todo} />
+            <TodoItem todo={todo} handleTodoUpdate={props.handleTodoUpdate} />
           </li>
         ))}
       </ul>

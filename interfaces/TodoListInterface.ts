@@ -1,5 +1,9 @@
-import { TodoInterface } from './TodoInterface';
+import { TodoInterface } from "./TodoInterface";
 
 export interface TodoListInterface {
   todos: TodoInterface[];
+  handleTodoUpdate: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    id: string
+  ) => void;
 }
