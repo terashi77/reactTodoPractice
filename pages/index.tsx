@@ -1,22 +1,28 @@
-import * as React from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import TodoList from "./../components/TodoList";
 import TodoForm from "./../components/TodoForm";
 import { TodoInterface } from "./../interfaces/TodoInterface";
 import taskStorage from "./../store/index";
 
-export default function Home() {
-  const [todos, setTodos] = React.useState<TodoInterface[]>([]);
+function useTodos() {
+  const [todos, setTodos] = useState<TodoInterface[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     console.log("fetch");
     const fetchedTodos: TodoInterface[] = taskStorage.fetch();
     setTodos(fetchedTodos);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     console.log("update");
     taskStorage.save(todos);
   }, [todos]);
+
+  return [todos, setTodos] as const;
+}
+
+export default function Home() {
+  const [todos, setTodos] = useTodos();
 
   function handleTodoCreate(todo: TodoInterface) {
     const newTodosState: TodoInterface[] = [...todos];
@@ -24,10 +30,7 @@ export default function Home() {
     setTodos(newTodosState);
   }
 
-  function handleTodoUpdate(
-    event: React.ChangeEvent<HTMLInputElement>,
-    id: string
-  ) {
+  function handleTodoUpdate(event: ChangeEvent<HTMLInputElement>, id: string) {
     const newTodosState: TodoInterface[] = [...todos];
     newTodosState.find((todo: TodoInterface) => todo.id === id)!.title =
       event.target.value;
