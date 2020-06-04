@@ -1,5 +1,6 @@
 import * as React from "react";
 import { TodoItemInterface } from "./../interfaces/TodoItemInterface";
+import Link from "next/link";
 
 const TodoItem = (props: TodoItemInterface) => {
   function handleInputEnter(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -20,6 +21,11 @@ const TodoItem = (props: TodoItemInterface) => {
             handleInputEnter(event)
           }
         />
+      </div>
+      <div className="item-detail">
+        <Link href={{ pathname: "/detail", query: { id: props.todo.id } }}>
+          <a>詳細</a>
+        </Link>
       </div>
       <div
         className="item-remove"
