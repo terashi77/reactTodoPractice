@@ -21,6 +21,12 @@ const TodoItem = (props: TodoItemInterface) => {
           }
         />
       </div>
+      <div
+        className="item-remove"
+        onClick={() => props.handleTodoRemove(props.todo.id)}
+      >
+        ⨯
+      </div>
     </div>
   );
 };

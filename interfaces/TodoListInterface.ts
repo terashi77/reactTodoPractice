@@ -6,4 +6,5 @@ export interface TodoListInterface {
     event: React.ChangeEvent<HTMLInputElement>,
     id: string
   ) => void;
+  handleTodoRemove: (id: string) => void;
 }

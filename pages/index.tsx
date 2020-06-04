@@ -25,11 +25,22 @@ export default function Home() {
     setTodos(newTodosState);
   }
 
+  function handleTodoRemove(id: string) {
+    const newTodosState: TodoInterface[] = todos.filter(
+      (todo: TodoInterface) => todo.id !== id
+    );
+    setTodos(newTodosState);
+  }
+
   return (
     <div className="container">
       <main>
         <TodoForm handleTodoCreate={handleTodoCreate} />
-        <TodoList todos={todos} handleTodoUpdate={handleTodoUpdate} />
+        <TodoList
+          todos={todos}
+          handleTodoUpdate={handleTodoUpdate}
+          handleTodoRemove={handleTodoRemove}
+        />
       </main>
     </div>
   );
