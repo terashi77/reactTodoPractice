@@ -25,7 +25,7 @@ export default function Home() {
   }
 
   return (
-    <div className="container">
+    <div className="text-center container mx-auto">
       <main>
         <TodoForm handleTodoCreate={handleTodoCreate} />
         <TodoList

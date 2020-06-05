@@ -41,38 +41,41 @@ export default function Detail() {
   }
 
   return (
-    <div className="container">
+    <div className="text-center container mx-auto">
       <main>
-        <h1>Detail page</h1>
-        <div className="detail-title">
+        <h1 className="font-semibold text-4xl text-blue-500">Detail page</h1>
+        <div>
           <input
+            className="detail-title block shadow appearance-none border rounded py-2 px-3 text-gray-600 my-4 w-1/2 mx-auto"
             value={selectedTodo.title}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               handleTodoTitleUpdate(event, router.query.id as string)
             }
           ></input>
         </div>
-        <div className="detail-detail">
+        <div>
           <textarea
+            className="detail-detail block shadow appearance-none border rounded py-2 px-3
+    text-gray-600 mx-2 my-4 w-1/2 h-64 mx-auto"
             value={selectedTodo.detail}
             onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
               handleTodoDetailUpdate(event, router.query.id as string)
             }
           ></textarea>
         </div>
-        <div className="detail-back-button">
-          <Link href={{ pathname: '/' }}>
+        <Link href={{ pathname: '/' }}>
+          <button className="detail-back-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             <a>戻る</a>
-          </Link>
-        </div>
-        <div
-          className="detail-remove-button"
-          onClick={() => handleTodoRemove(router.query.id as string)}
-        >
-          <Link href={{ pathname: '/' }}>
-            <a>x</a>
-          </Link>
-        </div>
+          </button>
+        </Link>
+        <Link href={{ pathname: '/' }}>
+          <button
+            className="detail-remove-button bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-4 rounded"
+            onClick={() => handleTodoRemove(router.query.id as string)}
+          >
+            <a>削除</a>
+          </button>
+        </Link>
       </main>
     </div>
   );
