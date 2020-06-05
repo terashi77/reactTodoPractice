@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { TodoInterface } from './../interfaces/TodoInterface';
+import { TodoInterface } from '../interfaces/TodoInterface';
 import { useRouter } from 'next/router';
-import { useTodos } from './../hooks';
+import { useTodos } from '../hooks';
 import Link from 'next/link';
 
 export default function Detail() {

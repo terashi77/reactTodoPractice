@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TodoItemInterface } from './../interfaces/TodoItemInterface';
+import { TodoItemInterface } from '../interfaces/TodoItemInterface';
 import Link from 'next/link';
 
 const TodoItem = (props: TodoItemInterface) => {

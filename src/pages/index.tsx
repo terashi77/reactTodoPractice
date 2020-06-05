@@ -1,8 +1,8 @@
 import { useState, useEffect, ChangeEvent } from 'react';
-import TodoList from './../components/TodoList';
-import TodoForm from './../components/TodoForm';
-import { TodoInterface } from './../interfaces/TodoInterface';
-import { useTodos } from './../hooks';
+import TodoList from '../components/TodoList';
+import TodoForm from '../components/TodoForm';
+import { TodoInterface } from '../interfaces/TodoInterface';
+import { useTodos } from '../hooks';
 
 export default function Home() {
   const [todos, setTodos] = useTodos();

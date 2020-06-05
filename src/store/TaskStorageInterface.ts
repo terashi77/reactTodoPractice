@@ -1,4 +1,4 @@
-import { TodoInterface } from "./../interfaces/TodoInterface";
+import { TodoInterface } from '../interfaces/TodoInterface';
 
 export interface TaskStrorageInterface {
   fetch: () => TodoInterface[];
