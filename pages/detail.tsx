@@ -1,67 +1,78 @@
-import * as React from "react";
-import { TodoInterface } from "./../interfaces/TodoInterface";
-import { useRouter } from "next/router";
-import taskStorage from "./../store/index";
+import * as React from 'react';
+import { TodoInterface } from './../interfaces/TodoInterface';
+import { useRouter } from 'next/router';
+import { useTodos } from './../hooks';
+import Link from 'next/link';
 
 export default function Detail() {
-  // const [todos, setTodos] = React.useState<TodoInterface[]>([]);
+  const [todos, setTodos] = useTodos();
   const [selectedTodo, setSelectedTodo] = React.useState<TodoInterface>({
-    id: "",
-    title: "",
-    detail: "",
+    id: '',
+    title: '',
+    detail: '',
   });
   const router = useRouter();
-  // console.log(router.query.id);
-
-  const setup = async () => {
-    const fetchedTodos: TodoInterface[] = await taskStorage.fetch();
-
-    const id = await router.query.id;
-
-    const selectedTodo: TodoInterface = await fetchedTodos.find(
-      (todo: TodoInterface) => {
-        console.log(todo.id);
-        return todo.id === id;
-      }
-    );
-
-    console.log(selectedTodo);
-
-    await setSelectedTodo(selectedTodo);
-  };
 
   React.useEffect(() => {
-    console.log("fetch");
-    setup();
-    // const fetchedTodos: TodoInterface[] = taskStorage.fetch();
+    if (todos.length === 0) return;
 
-    // const id = router.query.id;
+    const selectedTodo: TodoInterface = todos.find((todo: TodoInterface) => {
+      return todo.id === router.query.id;
+    });
 
-    // const selectedTodo: TodoInterface = fetchedTodos.find(
-    //   (todo: TodoInterface) => {
-    //     console.log(todo.id);
-    //     return todo.id === id;
-    //   }
-    // );
-    // setSelectedTodo(selectedTodo);
-  }, []);
+    setSelectedTodo(selectedTodo);
+  }, [todos, selectedTodo]);
 
-  // React.useEffect(() => {
-  //   console.log("update");
-  //   taskStorage.save(todos);
-  // }, [todos]);
+  function handleTodoTitleUpdate(event: React.ChangeEvent<HTMLInputElement>, id: string) {
+    const newTodosState: TodoInterface[] = [...todos];
+    newTodosState.find((todo: TodoInterface) => todo.id === id)!.title = event.target.value;
+    setTodos(newTodosState);
+  }
+
+  function handleTodoDetailUpdate(event: React.ChangeEvent<HTMLTextAreaElement>, id: string) {
+    const newTodosState: TodoInterface[] = [...todos];
+    newTodosState.find((todo: TodoInterface) => todo.id === id)!.detail = event.target.value;
+    setTodos(newTodosState);
+  }
+
+  function handleTodoRemove(id: string) {
+    const newTodosState: TodoInterface[] = todos.filter((todo: TodoInterface) => todo.id !== id);
+    setTodos(newTodosState);
+  }
 
   return (
     <div className="container">
       <main>
         <h1>Detail page</h1>
-
-        {/* <div className="detail-title">
-          <input value={selectedTodo.title}></input>
+        <div className="detail-title">
+          <input
+            value={selectedTodo.title}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              handleTodoTitleUpdate(event, router.query.id as string)
+            }
+          ></input>
         </div>
         <div className="detail-detail">
-          <textarea value={selectedTodo.detail}></textarea>
-        </div> */}
+          <textarea
+            value={selectedTodo.detail}
+            onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
+              handleTodoDetailUpdate(event, router.query.id as string)
+            }
+          ></textarea>
+        </div>
+        <div className="detail-back-button">
+          <Link href={{ pathname: '/' }}>
+            <a>戻る</a>
+          </Link>
+        </div>
+        <div
+          className="detail-remove-button"
+          onClick={() => handleTodoRemove(router.query.id as string)}
+        >
+          <Link href={{ pathname: '/' }}>
+            <a>x</a>
+          </Link>
+        </div>
       </main>
     </div>
   );
